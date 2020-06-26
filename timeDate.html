@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TimeDate</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.11"></script>
+    <style>
+      body {
+        padding: 0;
+        margin: 0;
+        background-color: #000;
+        color: #fff;
+        font-family: sans-serif;
+      }
+      #app {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .date {
+        font-size: 130px;
+      }
+      .time {
+        font-size: 150px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" @click="fullScreen">
+      <div class="date">{{ date }}</div>
+      <div class="time">{{ time }}</div>
+    </div>
+    <script>
+      var app = new Vue({
+        el: "#app",
+        data: {
+          date: "",
+          time: "",
+          isFullScreen: false,
+        },
+        mounted() {
+          this.currentTime();
+        },
+        methods: {
+          timeDate: function () {
+            var _this = this;
+            const yy = new Date().getFullYear();
+            let mm = new Date().getMonth() + 1;
+            if (mm < 10) {
+              mm = "0" + mm;
+            }
+            const dd = new Date().getDate();
+            const hh = new Date().getHours();
+            const mf =
+              new Date().getMinutes() < 10
+                ? "0" + new Date().getMinutes()
+                : new Date().getMinutes();
+            const ss =
+              new Date().getSeconds() < 10
+                ? "0" + new Date().getSeconds()
+                : new Date().getSeconds();
+            _this.date = mm + "月" + dd + "日 ";
+            _this.time = hh + ":" + mf + ":" + ss;
+            //   yy + "年" + mm + "月" + dd + "日 " + hh + ":" + mf + ":" + ss;
+          },
+          currentTime() {
+            setInterval(this.timeDate, 1000);
+          },
+          fullScreen() {
+            if (this.isFullScreen) {
+              if (document.exitFullscreen) {
+                document.exitFullscreen();
+              } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+              } else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen();
+              } else if (document.m ** itFullscreen) {
+                document.m ** itFullscreen();
+              }
+              return (this.isFullScreen = false);
+            }
+            var docElm = document.documentElement;
+            //W3C
+            if (docElm.requestFullscreen) {
+              docElm.requestFullscreen();
+            }
+            //FireFox
+            else if (docElm.mozRequestFullScreen) {
+              docElm.mozRequestFullScreen();
+            }
+            //Chrome等
+            else if (docElm.webkitRequestFullScreen) {
+              docElm.webkitRequestFullScreen();
+            }
+            //IE11
+            else if (elem.msRequestFullscreen) {
+              elem.msRequestFullscreen();
+            }
+            this.isFullScreen = true;
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
